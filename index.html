@@ -69,39 +69,37 @@
     ];
   
     noButton.addEventListener('click', function() {
-  if (noClickCount < 7) {
-    noClickCount++;
-    imageDisplay.src = imagePaths[Math.min(noClickCount, imagePaths.length - 1)];
-    buttonHeight += 35; 
-    buttonWidth += 35;
-    fontSize += 25; 
-    yesButton.style.height = `${buttonHeight}px`;
-    yesButton.style.width = `${buttonWidth}px`;
-    yesButton.style.fontSize = `${fontSize}px`; 
-    
-    if (noClickCount < 6) {
-      noButton.textContent = ["No", "Babe don't be like that", "My Jenny ToT", "It's not funnyyy click yess", "Pretty please?", "I'm begging you on my knee"][noClickCount];
-    } else if (noClickCount === 7) {
-      noButton.textContent = "Yes";
-      noButton.className = yesButton.className; // Copy Yes button styles
-      noButton.removeEventListener('click', arguments.callee); // Remove previous behavior
-      noButton.addEventListener('click', () => {
-        imageDisplay.src = './images/image7.gif';
-        valentineQuestion.textContent = "Yayyy!! :3";
-        responseButtons.style.display = 'none';
-        confetti();
-      });
-    }
-  }
-});
-
-  
-    yesButton.addEventListener('click', () => {
-      imageDisplay.src = './images/image7.gif'; // Change to image7.gif
-      valentineQuestion.textContent = "Yayyy!! :3"; // Change the question text
-      responseButtons.style.display = 'none'; // Hide both buttons
-      confetti(); // Trigger confetti animation
+      if (noClickCount < 7) {
+        noClickCount++;
+        imageDisplay.src = imagePaths[Math.min(noClickCount, imagePaths.length - 1)];
+        buttonHeight += 35; 
+        buttonWidth += 35;
+        fontSize += 25; 
+        yesButton.style.height = `${buttonHeight}px`;
+        yesButton.style.width = `${buttonWidth}px`;
+        yesButton.style.fontSize = `${fontSize}px`; 
+        
+        if (noClickCount < 6) {
+          noButton.textContent = ["No", "Babe don't be like that", "My Jenny ToT", "It's not funnyyy click yess", "Pretty please?", "I'm begging you on my knee"][noClickCount];
+        } else if (noClickCount === 7) {
+          noButton.textContent = "Yes";
+          noButton.className = yesButton.className; // Copy Yes button styles
+          noButton.removeEventListener('click', arguments.callee); // Remove previous behavior
+          noButton.addEventListener('click', () => {
+            triggerYesResponse();
+          });
+        }
+      }
     });
+
+    function triggerYesResponse() {
+      imageDisplay.src = './images/image7.gif'; // Change image when user clicks "Yes"
+      valentineQuestion.textContent = "Yayyy!! :3"; 
+      responseButtons.style.display = 'none'; 
+      confetti();
+    }
+
+    yesButton.addEventListener('click', triggerYesResponse);
   </script>  
 </body>
 </html>
